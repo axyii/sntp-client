@@ -72,9 +72,12 @@ get_time(const char* host){
     }
 
     freeaddrinfo(result);
-    packet.trantim = ntohl( packet.trantim ); // converting from network byte order to host byte order
+    // converting from network byte order to host byte order
+    unsigned char *b = (unsigned char*)&packet.trantim;
+    uint32_t trantim = (uint32_t)b[0] << 24 | (uint32_t)b[1] << 16 |
+                       (uint32_t)b[2]  << 8 | (uint32_t)b[3]  << 0;
 
-    time_t actual_time = ( time_t ) ( packet.trantim - NTP_TIMESTAMP_DELTA );
+    time_t actual_time = ( time_t ) ( trantim - NTP_TIMESTAMP_DELTA );
 
     return actual_time;
 }
