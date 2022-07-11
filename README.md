@@ -1,6 +1,6 @@
 # sntp-client
 
-A simple SNTP library and client
+A simple NTP library and client
 
 ## Installing
 
